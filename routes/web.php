@@ -37,3 +37,10 @@ Route::any('/reglog/login_do','LoginController@login_do');
 
 Route::any('/add','AdminController@add');
 Route::post('/add_do','AdminController@add_do');
+
+Route::get('/adds','studentController@adds');
+Route::post('/adds_do','studentController@adds_do');
+Route::get('/lists','studentController@lists');
+Route::get('/index', function () {
+    return view('index');
+});

@@ -40,7 +40,6 @@ class studentController extends Controller
     public function del(Request $request){
     	// echo $id;die;
     	$id=$_GET['id'];
-
     	$where=[
     		'id'=>$id
     	];
@@ -75,5 +74,30 @@ class studentController extends Controller
     	}else{
     		return redirect('/student/student_add');
     	}
+    }
+    public function adds(){
+        return view('/student/adds');
+    }
+    public function adds_do(Request $request){
+                        //排出多余字符
+        $data=request()->except('_token');
+        // dd($data);
+        // $path = $request->file('avatar')->store('avatars');
+        $path = $request->file('goods_img')->store('goods');
+        $string= asset('storage/'.$path);
+        // dd($string);
+        $res=DB::table("goods")->insert([
+            'goods_img'=>$string]);
+        // dd($res);
+        if($res){
+            return redirect('lists');
+        }else{
+            return redirect('adds');
+        }
+    }
+    public function lists(Request $request){
+        $data=DB::table("goods")->get();
+        // dd($data);
+        return view('/student/lists')->with('data',$data);
     }
 }

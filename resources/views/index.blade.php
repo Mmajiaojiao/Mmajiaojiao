@@ -1,5 +1,4 @@
-
-@extends('layouts.app')
+@extends('layouts.common')
 
 @section('title','Page Title')
 <!-- 引入占位符区域 -->
