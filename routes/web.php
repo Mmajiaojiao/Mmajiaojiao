@@ -32,6 +32,7 @@ Route::get('aboutus','IndexController@aboutus');
 Route::get('contact','IndexController@contact');
 Route::get('wishlist','IndexController@wishlist');
 Route::post('pay','AlipayController@pay');
+Route::post('notify_url','AlipayController@aliNotify')
 Route::get('quit','AlipayController@quit');
 
 Route::get('/user','IndexController@index');

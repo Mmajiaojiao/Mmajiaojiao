@@ -18,7 +18,8 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array
      */
+    //过滤csrf
     protected $except = [
-        //
+        'notify_url'
     ];
 }
