@@ -20,7 +20,7 @@ class AlipayController extends Controller
         $this->app_id = '2016092500595745';
         $this->gate_way = 'https://openapi.alipaydev.com/gateway.do';
         $this->notify_url = env('APP_URL').'/notify_url';
-        $this->return_url = env('APP_URL').'/';
+        $this->return_url = env('APP_URL').'/return_url';
     }
     
     
@@ -172,20 +172,21 @@ class AlipayController extends Controller
      */
     public function aliNotify()
     {
+        file_put_contents(storage_path('logs/alipay.log'),"yibu",FILE_APPEND);
         $data = json_encode($_POST);
         $log_str = '>>>>'.date('Y-m-d H:i:s') . $data . "<<<<\n\n";
         //记录日志
-        file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+        file_put_contents(storage_path('logs/alipay.log'),$log_str,FILE_APPEND);
         //验签
         $res = $this->verify($_POST);
         $log_str = '>>>> ' . date('Y-m-d H:i:s');
         if($res){
             //记录日志 验签失败
             $log_str .= " Sign Failed!<<<<< \n\n";
-            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+            file_put_contents(storage_path('logs/alipay.log'),$log_str,FILE_APPEND);
         }else{
             $log_str .= " Sign OK!<<<<< \n\n";
-            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+            file_put_contents(storage_path('logs/alipay.log'),$log_str,FILE_APPEND);
         }
         //验证订单交易状态
         if($_POST['trade_status']=='TRADE_SUCCESS'){
